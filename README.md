@@ -56,6 +56,17 @@ fill in the marked placeholders.
       fb-to-jira-ticket/      single-ticket worker (a separate skill despite nesting)
     garbage-collection-plan/    plan a behavior-preserving cleanup pass
     garbage-collection-execute/ execute the cleanup pass
+    # language packs (conditional refs of coding-effectively) + extras
+    howto-code-in-python/       Python discipline (uv, ruff, pytest, typing)
+    howto-code-in-rust/         Rust discipline (errors, cargo, testing)
+    howto-code-in-typescript/   TypeScript discipline (+ typebox, type-fest)
+    howto-develop-with-postgres/ TX-safe Postgres access (+ drizzle notes)
+    programming-in-react/       React patterns (+ hooks deep-dive, testing)
+    property-based-testing/     property catalogs and library reference
+    howto-code-in-sas94/        SAS 9.4 discipline (+ large references tree)
+    postmortem-review/          development-process postmortems
+    typesafe-ai/                typed judgments and probabilities for LLM apps
+    typography-designer/        interface typography (+ reference docs)
 config.yaml                   example user config (model groups + playwright MCP)
 hooks.json.example            hook registrations for the three portable hooks
 mise.toml.example             starter tool versions (mise)
@@ -63,11 +74,13 @@ justfile.example              starter recipes matching the workflow skills
 .envrc.example                starter direnv config (skills run via `direnv exec .`)
 ```
 
-Language packs (`howto-code-in-python`, `howto-code-in-rust`,
-`howto-code-in-typescript`, `programming-in-react`, `sas94`,
-`property-based-testing`, and `using-atgc` for Tangled-hosted projects) are
-conditional references of `coding-effectively`, not required deps — add the
-ones you need from your own Polytoken install.
+Language packs and extras (`howto-code-in-python`, `howto-code-in-rust`,
+`howto-code-in-typescript`, `howto-develop-with-postgres`,
+`programming-in-react`, `property-based-testing`, `howto-code-in-sas94`,
+`postmortem-review`, `typesafe-ai`, `typography-designer`; plus `using-atgc`
+for Tangled-hosted projects, if you use it) are conditional references of
+`coding-effectively`. They are vendored here; re-sync them from your global
+install when that set moves.
 
 ## Customizing the Jira pack
 
