@@ -1,12 +1,60 @@
 # polyskills
 
-A portable Polytoken configuration template: curated skills, two facets, one
-subagent, portable hooks, an example user config, project-toolchain starter
-files, and a generalized Jira workflow pack. Copy what you need into a
-project's `.polytoken/` directory or your global `~/.config/polytoken/`, then
-fill in the marked placeholders.
+This is my personal configuration template with skills I use regularly, including
+a generalized Jira workflow pack. It also contains two facets, one subagent,
+portable hooks, example configuration, and toolchain starters. I maintain it for
+my own projects. If you use these skills, use them with
+[Polytoken](https://polytoken.dev/).
 
-## What's in it
+## Using it
+
+This repository is a configuration template, not an application. It has no
+build or run command. You need Git and Polytoken. The hook scripts also need
+Python 3.
+
+1. Open a terminal in the folder where you keep your projects.
+2. Clone this repository:
+
+   ```sh
+   git clone https://github.com/scarnecchia/polyskills.git
+   ```
+
+3. Open the cloned `polyskills` folder in your editor.
+4. Modify the skills to match your projects.
+5. Remove any skills that you do not need.
+6. Ask your agent in Polytoken to use the installation guidance:
+
+   > Reference the `polytoken:modifying-polytoken` skill to add these skills to my projects.
+
+The installation uses file copies and configuration changes, not a package
+installer. Use these steps with your agent:
+
+1. Copy `.polytoken/` into your project root, or selected skills into `~/.config/polytoken/skills/` for global use.
+2. Replace the applicable placeholders in [Customizing the Jira pack](#customizing-the-jira-pack). Each Jira skill's `Constants` block lists its requirements.
+3. If you have no user configuration, copy `config.yaml` to `~/.config/polytoken/config.yaml`. Otherwise, use it as a reference.
+4. Set the three model groups to models your providers authorize. You can use equivalent groups if you update their references.
+5. Register the hook scripts as described in [Hooks](#hooks).
+6. Write your project's `AGENTS.md` with an **environment facts** section. This section covers repository layout, test commands, allowed fetch protocols, and service endpoints.
+7. Start a planning session in the `plan-dev` facet.
+
+Most tool errors come from unknown environment details, not model failures.
+The environment facts help the agent use your project's tools correctly.
+The `plan-dev` facet passes its plan to `dev` through `handoff_plan` for
+whole-plan approval. This approval request is the expected next step, not an
+application launch.
+
+## Developer setup
+
+Use the clone from [Using it](#using-it) to edit the skills and configuration.
+This repository has no build, test, or development run command. The example
+recipes are placeholders for your project's commands, not tests for this
+repository. Python 3 is required only for the hook scripts.
+
+For a project's toolchain, adapt the optional [Project toolchain
+starters](#project-toolchain-starters). Their versions are starting points, not
+requirements for editing this template.
+
+## What is in it
 
 ```
 .polytoken/
@@ -103,22 +151,28 @@ Replace these before first use:
 | `<project-prefix>-<number>_<short-description>` | solo-tasker pair | your worktree branch naming convention |
 | `just build` / `just test` / `just fix`, `direnv exec .`, pre-commit hooks, `.worktrees/`, `.merge-lock`, single-`main` branch model | solo-tasker + epic skills | your project's real build/test/merge commands and branch model — the workflows assume a long-lived `main` with worktrees, but every command is named explicitly so you can swap it |
 
-The pack was extracted from a working setup and de-personalized: project keys,
-cloud IDs, Confluence pages, and raw model names were all replaced.
-replaced. The workflow shapes (claim-before-research double-grab, review
-panels, skeptic gates, merge gates, ticket-lifecycle checkpoints) are the
-portable part.
+This pack comes from a working setup with placeholders instead of project keys,
+cloud IDs, Confluence pages, and raw model names. The portable parts are the
+workflows: claim-before-research double-grab, review panels, skeptic gates,
+merge gates, and ticket-lifecycle checkpoints.
 
 ## Project toolchain starters
 
+These files are optional starting points for the project that uses your skills:
+
 - `mise.toml.example` — starting tool versions (direnv, just, lefthook, uv,
-  ruff, shellcheck). Copy to `mise.toml` and pin what your project needs.
+  ruff, shellcheck).
 - `justfile.example` — starter recipes with the names the Jira workflow skills
   call (`build`, `test`, `fix`, `worktree-create`, `worktree-remove`).
-- `.envrc.example` — starter direnv config; the skills run commands through
-  `direnv exec .`, so this file is what loads the project environment. Copy to
-  `.envrc`, adapt, then `direnv allow`. Keep secrets in a git-ignored
-  `.env.local`, never in `.envrc`.
+- `.envrc.example` — starter direnv configuration. The skills use
+  `direnv exec .` to run commands in the project environment.
+
+1. Copy the example files you need into your project without the `.example` suffix.
+2. Pin the tool versions in `mise.toml` to match your project.
+3. Replace the starter recipes in `justfile` with your project's commands.
+4. Adapt `.envrc` to your project environment.
+5. Keep secrets in a git-ignored `.env.local`, never in `.envrc`.
+6. If you use `.envrc`, run `direnv allow` from your project folder.
 
 ## Hooks
 
@@ -133,27 +187,13 @@ machine-agnostic:
 - `scope-guard.py` — fences file edits to the scope roots declared for the
   session.
 
-They do nothing until registered. To activate them globally, copy the scripts
-to `~/.config/polytoken/hooks/` and merge the entries from
-`hooks.json.example` into your `~/.config/polytoken/hooks.json`. Other hooks
-you may run (host banners, private-environment loaders) are deliberately not
-included.
+Polytoken does not run these hooks until you register them. To activate them globally:
 
-## Using it
+1. Copy the scripts to `~/.config/polytoken/hooks/`.
+2. Merge the entries from `hooks.json.example` into `~/.config/polytoken/hooks.json`.
 
-1. Copy `.polytoken/` into a new project root, or copy selected skills into
-   `~/.config/polytoken/skills/` to make them global.
-2. Work through the customization table above (each Jira skill's Constants
-   block lists exactly what it needs).
-3. Copy `config.yaml` to `~/.config/polytoken/config.yaml`, fill the model
-   groups, and copy the hook scripts + register them per the Hooks section.
-4. Start from the toolchain starters (`mise.toml`, `justfile`, `.envrc`) and
-   adapt them to your stack.
-5. Write the project's `AGENTS.md` with an **environment facts** section
-   (repo layout, test command, allowed fetch protocols, service endpoints) —
-   most tool errors come from environment unknowns, not model failures.
-6. Start planning sessions in the `plan-dev` facet; they hand off to `dev`
-   via `handoff_plan` for whole-plan approval.
+This repository deliberately excludes other hooks, such as host banners and
+private-environment loaders.
 
 ## Design notes
 
@@ -170,6 +210,11 @@ included.
   are assumed and deliberately not shadowed.
 
 ## Provenance
+
+These are skills I use regularly, largely adapted from the work of others.
+Credit goes to [haileyok](https://github.com/haileyok),
+[ed3dai](https://github.com/ed3dai), and
+[sjennings](https://github.com/sjennings).
 
 The delivery/coding/writing skills are synced copies from a live Polytoken
 install. The Jira pack was generalized from a single-project Atlassian setup.
