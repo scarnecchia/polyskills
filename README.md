@@ -104,7 +104,7 @@ Replace these before first use:
 | `just build` / `just test` / `just fix`, `direnv exec .`, pre-commit hooks, `.worktrees/`, `.merge-lock`, single-`main` branch model | solo-tasker + epic skills | your project's real build/test/merge commands and branch model — the workflows assume a long-lived `main` with worktrees, but every command is named explicitly so you can swap it |
 
 The pack was extracted from a working setup and de-personalized: project keys,
-cloud IDs, Confluence pages, and raw model names were all replaced, and the Sentry integration references were removed
+cloud IDs, Confluence pages, and raw model names were all replaced.
 replaced. The workflow shapes (claim-before-research double-grab, review
 panels, skeptic gates, merge gates, ticket-lifecycle checkpoints) are the
 portable part.
