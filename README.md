@@ -56,7 +56,6 @@ fill in the marked placeholders.
       fb-to-jira-ticket/      single-ticket worker (a separate skill despite nesting)
     garbage-collection-plan/    plan a behavior-preserving cleanup pass
     garbage-collection-execute/ execute the cleanup pass
-atlassian/AGENTS.md           contracts + adoption notes for the Jira pack
 config.yaml                   example user config (model groups + playwright MCP)
 hooks.json.example            hook registrations for the three portable hooks
 mise.toml.example             starter tool versions (mise)
