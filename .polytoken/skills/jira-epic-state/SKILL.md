@@ -16,7 +16,7 @@ Chat memory, todos, running job ids, and subagent claims are not durable truth. 
 
 ## Naming
 
-Jira project keys such as `ABC-73` identify Jira issues. Do not name Epic branches or worktrees `pt-73`; that shape reads like a task branch. Name Epic branches and worktrees with the Epic role:
+Jira project keys such as `ABC-73` identify Jira issues. Do not name Epic branches or worktrees `abc-73`; that shape reads like a task branch. Name Epic branches and worktrees with the Epic role:
 
 ```text
 epic-73

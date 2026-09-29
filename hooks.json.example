@@ -1,0 +1,48 @@
+[
+  {
+    "name": "project-context-reminder-detect",
+    "event": "post_tool_use",
+    "matcher": "shell_exec",
+    "handler": {
+      "bash": "python3 \"${HOME}/.config/polytoken/hooks/git-command-reminder.py\" detect"
+    }
+  },
+  {
+    "name": "project-context-reminder-inject",
+    "event": "pre_model_turn",
+    "handler": {
+      "bash": "python3 \"${HOME}/.config/polytoken/hooks/git-command-reminder.py\" inject"
+    }
+  },
+  {
+    "name": "delivery-completion-proof",
+    "event": "stop",
+    "handler": {
+      "bash": "python3 \"$HOME/.config/polytoken/hooks/completion-proof.py\""
+    }
+  },
+  {
+    "name": "scope-guard-file-edit",
+    "event": "pre_tool_use",
+    "matcher": "file_edit_*",
+    "handler": {
+      "bash": "python3 \"$HOME/.config/polytoken/hooks/scope-guard.py\""
+    }
+  },
+  {
+    "name": "scope-guard-file-write",
+    "event": "pre_tool_use",
+    "matcher": "file_write",
+    "handler": {
+      "bash": "python3 \"$HOME/.config/polytoken/hooks/scope-guard.py\""
+    }
+  },
+  {
+    "name": "scope-guard-patch-edit",
+    "event": "pre_tool_use",
+    "matcher": "patch_edit",
+    "handler": {
+      "bash": "python3 \"$HOME/.config/polytoken/hooks/scope-guard.py\""
+    }
+  }
+]

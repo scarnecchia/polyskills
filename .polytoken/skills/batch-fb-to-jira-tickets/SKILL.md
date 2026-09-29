@@ -15,7 +15,7 @@ investigate.
 All values in this block are site-specific placeholders — replace them with your own project values before first use.
 
 - Atlassian cloudId: `<ATLASSIAN_CLOUD_ID>`
-- Feedback project: `FB` (project ID `<FB_PROJECT_ID>`, Task issue type `<FB_TASK_TYPE_ID>`)
+- Feedback project: `<FB_PROJECT_KEY>` (project ID `<FB_PROJECT_ID>`, Task issue type `<FB_TASK_TYPE_ID>`)
 - Engineering project (ENG): `<PROJECT_KEY>` (project ID `<PROJECT_ID>`)
 - ENG issue types: Task (`<TASK_TYPE_ID>`), Bug (`<BUG_TYPE_ID>`)
 - Sentry org: `<SENTRY_ORG>`
@@ -38,7 +38,7 @@ Paginate through all results:
 
 ```
 searchJiraIssuesUsingJql:
-  jql = "project = FB AND status = \"To Do\" ORDER BY created ASC"
+  jql = "project = <FB_PROJECT_KEY> AND status = \"To Do\" ORDER BY created ASC"
   maxResults = 50
   fields = ["summary", "description", "issuetype", "status", "labels",
             "comment", "created"]
@@ -269,7 +269,7 @@ Only transition the FB ticket to Done after all its problems are handled.
 For each ticket, follow the execution procedures from `fb-to-jira-ticket`:
 
 1. **Pre-write revalidation:** Re-read the FB ticket. Verify `project.key ==
-   "FB"` and `status.name == "To Do"`. If the status changed (another agent or
+   "<FB_PROJECT_KEY>"` and `status.name == "To Do"`. If the status changed (another agent or
    human acted), skip that ticket and report the conflict. For conversions,
    also run the **idempotency check** from `fb-to-jira-ticket`: search ENG for
    `Converted from <FB-KEY>`. If found, do not create a duplicate — for

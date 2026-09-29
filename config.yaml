@@ -3,23 +3,25 @@
 # Copy to ~/.config/polytoken/config.yaml and adapt:
 #   - The model groups below (workhorse / arch / review) are referenced by the
 #     vendored skills and facets via @mg:workhorse, @mg:arch, and @mg:review.
-#     Keep the group names, or rename them and update the skill references.
+#     Fill in model references your providers authorize; the commented lines
+#     show the illustrative format.
 #   - The playwright server entry is an example; adjust the chromium
 #     executable path for your machine or remove the server entirely.
 version: 4
 modelgroups:
   # Implementors, correctness/test-quality/coverage review seats.
+  # Entry format: <provider>/<model>(<effort>) — e.g. provider-a/model-x(high)
   workhorse:
-    - codex/gpt-6-luna(high)
-    - zai/glm-5.3-flash(high)
+    - <workhorse-model-1>
+    - <workhorse-model-2>
   # Architecture review seats and skeptics.
   arch:
-    - codex/gpt-6-astra(low)
-    - zai/glm-5.3(high)
+    - <arch-model-1>
+    - <arch-model-2>
   # Adversarial review seats and the test-sufficiency gate.
   review:
-    - codex/gpt-6-astra(medium)
-    - zai/glm-5.3(high)
+    - <review-model-1>
+    - <review-model-2>
 mcp_servers:
   playright:
     transport: stdio

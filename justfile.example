@@ -1,0 +1,23 @@
+# Starter justfile — the polyskills Jira workflow pack references recipes with
+# these names (build, test, fix, worktree-create, worktree-remove). Adapt the
+# bodies to your toolchain; keep the names, or update the skills to match.
+
+# Build everything; fail on error.
+build:
+    echo "Implement: build command"
+
+# Run the full test suite (what review gates consider "green").
+test:
+    echo "Implement: test command"
+
+# Auto-format and lint in place.
+fix:
+    echo "Implement: fmt + lint"
+
+# Create an isolated worktree at .worktrees/<branch> for a ticket branch.
+worktree-create branch:
+    git worktree add .worktrees/{{branch}} -b {{branch}}
+
+# Remove a task worktree after its work is merged.
+worktree-remove branch:
+    git worktree remove .worktrees/{{branch}}

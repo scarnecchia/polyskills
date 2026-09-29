@@ -1,0 +1,14 @@
+# Starter .envrc for direnv. The workflow skills run build/test commands via
+# `direnv exec .`, so this file is what loads your project environment.
+# Copy to .envrc, adapt, then allow it: direnv allow
+
+# Put project-local tool binaries on PATH.
+PATH_add .local/bin
+
+# Load private environment variables from a git-ignored file.
+# Keep secrets OUT of .envrc itself (it is committed); point at a private file.
+if [ -f .env.local ]; then
+    set -a
+    source .env.local
+    set +a
+fi

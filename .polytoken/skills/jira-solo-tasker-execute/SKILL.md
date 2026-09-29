@@ -48,7 +48,7 @@ hard rules:
   checkpoint. Do not skip any of them. The most common failure is reaching
   In Review and then never advancing to Done after the merge.
 - **Done is not optional.** The run is incomplete until the ticket is in Done.
-  After a successful merge, the Done transition (`41`) is the final required
+  After a successful merge, the Done transition (`<DONE_ID>`) is the final required
   Jira action — it must happen before you report completion. If you merged and
   forgot to transition to Done, do it immediately.
 - **Never abandon a ticket mid-lifecycle.** If the session is interrupted,
@@ -203,7 +203,7 @@ hard rules:
    this step covers any additional commits from the review loop. Every finding
    must be resolved — fixed or explicitly rebutted — before you reach step 9.
 
-9. **Move to In Review and complete the goal.** `transitionJiraIssue` `31`.
+9. **Move to In Review and complete the goal.** `transitionJiraIssue` `<IN_REVIEW_ID>`.
    Prompt the operator to review the work. Reference the ticket by key. State
    explicitly in your message that the ticket is now In Review and that the
    next step (on operator acceptance) is merge to main followed by transition
@@ -243,11 +243,11 @@ hard rules:
       git merge --squash <branch>` then `direnv exec . git commit` so the
       `test-all` pre-commit gate has its credentials.
     - Release the lock (owner-checked against your ticket key), then
-      `transitionJiraIssue` `41` (Done). **Do not skip the Done transition.**
+      `transitionJiraIssue` `<DONE_ID>` (Done). **Do not skip the Done transition.**
       This is the single most common Jira lifecycle failure — agents merge,
       release the lock, remove the worktree, and report completion without ever
       transitioning the ticket to Done. After releasing the lock, before any
-      other cleanup, call `transitionJiraIssue` with transition `41`.
+      other cleanup, call `transitionJiraIssue` with transition `<DONE_ID>`.
     - Remove the worktree: `direnv exec . just worktree-remove <branch>`. Run
       this only after the merge has landed and the lock has been released, so the
       branch is fully merged before its worktree is torn down.
@@ -340,7 +340,7 @@ values run the probe from a directory without VCS markers.
   Commit and merge from a shell where direnv is active, or the commit hook fails
   for want of credentials.
 - If the operator cancels mid-execute, leave the ticket In Progress and ask
-  whether to restore it to To Do (`11`).
+  whether to restore it to To Do (`<TO_DO_ID>`).
 - **⚠️ You MUST operate inside the worktree for every file operation, shell
   command, and subagent spawn.** The worktree is created with `direnv exec .
   just worktree-create <branch>` and entered with `pushd .worktrees/<branch>`.

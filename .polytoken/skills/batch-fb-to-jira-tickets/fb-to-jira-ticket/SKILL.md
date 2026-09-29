@@ -15,7 +15,7 @@ investigate and recommend; the operator decides.
 All values in this block are site-specific placeholders — replace them with your own project values before first use.
 
 - Atlassian cloudId: `<ATLASSIAN_CLOUD_ID>`
-- Feedback project: `FB` (project ID `<FB_PROJECT_ID>`, Task issue type `<FB_TASK_TYPE_ID>`)
+- Feedback project: `<FB_PROJECT_KEY>` (project ID `<FB_PROJECT_ID>`, Task issue type `<FB_TASK_TYPE_ID>`)
 - Engineering project (ENG): `<PROJECT_KEY>` (project ID `<PROJECT_ID>`)
 - ENG issue types: Task (`<TASK_TYPE_ID>`), Bug (`<BUG_TYPE_ID>`)
 - Source marker for idempotency: `Converted from <FB-KEY>`
@@ -37,7 +37,7 @@ ticket content. Quote feedback only after redaction (see Redaction below).
 
 ```
 searchJiraIssuesUsingJql:
-  jql = "project = FB AND status = \"To Do\" ORDER BY created ASC"
+  jql = "project = <FB_PROJECT_KEY> AND status = \"To Do\" ORDER BY created ASC"
   maxResults = 1
   fields = ["summary", "description", "issuetype", "status", "labels",
             "comment", "created"]
@@ -203,7 +203,7 @@ is only transitioned to Done after all problems have been directed.
 
 Immediately before any Jira mutation, re-read the FB ticket and verify:
 
-1. `project.key == "FB"` and `issuetype.name == "Task"`.
+1. `project.key == "<FB_PROJECT_KEY>"` and `issuetype.name == "Task"`.
 2. `status.name == "To Do"` — if it changed (another agent or human acted),
    stop and report the conflict.
 
@@ -213,7 +213,7 @@ run?) is handled separately — see "Idempotency and recovery" below.
 
 ## Idempotency and recovery
 
-Before creating a ENG ticket, search for the source marker:
+Before creating an ENG ticket, search for the source marker:
 
 ```
 searchJiraIssuesUsingJql:
@@ -277,7 +277,7 @@ createJiraIssue:
   description: "<structured markdown — see below>"
 ```
 
-After creation, verify the returned issue has `project.key == "ENG"` and
+After creation, verify the returned issue has `project.key == "<PROJECT_KEY>"` and
 `issuetype.id` is `"<BUG_TYPE_ID>"` (Bug) or `"<TASK_TYPE_ID>"` (Task).
 
 **Description** must contain:
