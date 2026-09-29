@@ -90,14 +90,13 @@ Replace these before first use:
 
 | Placeholder | Where | Replace with |
 |---|---|---|
-| `<PROJECT_KEY>` | all `jira-*`, batch pack | your Jira project key (the feedback skills call the target project "ENG" in prose) |
-| `<FB_PROJECT_KEY>` | batch pack | the Jira project key that receives feedback tickets (prose shorthand for its tickets: "FB") |
+| `<PROJECT_KEY>` | all `jira-*`, batch pack | your Jira project key (the feedback skills call the target project "DEV" in prose) |
+| `<SD_PROJECT_KEY>` | batch pack | the Jira project key that receives feedback tickets (prose shorthand for its tickets: "SD") |
 | `<ATLASSIAN_CLOUD_ID>` | `jira-ops`, `jira-epic-from-prd`, `jira-epic-run`, `jira-solo-tasker-*`, batch pack | your Atlassian cloud ID |
-| `<TASK_TYPE_ID>`, `<BUG_TYPE_ID>`, `<FB_PROJECT_ID>`, `<FB_TASK_TYPE_ID>`, `<PROJECT_ID>` | batch pack, `jira-solo-tasker-plan`, `jira-epic-*` | your site's issue-type and project IDs (discover them; they differ per site) |
+| `<TASK_TYPE_ID>`, `<BUG_TYPE_ID>`, `<SD_PROJECT_ID>`, `<SD_TASK_TYPE_ID>`, `<PROJECT_ID>` | batch pack, `jira-solo-tasker-plan`, `jira-epic-*` | your site's issue-type and project IDs (discover them; they differ per site) |
 | `<TO_DO_ID>`, `<IN_PROGRESS_ID>`, `<IN_REVIEW_ID>`, `<DONE_ID>` | `jira-ops`, `jira-epic-run`, solo-tasker pair | your board's transition IDs — the skills also show dynamic discovery via `getTransitionsForJiraIssue`, which is the safer path |
 | `<HOUSEKEEPING_EPIC_KEY>` | `jira-ops` create recipe | the parent epic for housekeeping tickets, if you use one |
 | `<PRODUCT_AREA>`, `<PRD_CONTAINER>`, `<TD_CONTAINER>`, `<PRD_GUIDE>`, `<*_PAGE_ID>`, `<TD_LABEL>`, `<AREA_LABEL>`, `<STATUS_LIVE_LABEL>` | `jira-epic-from-prd` | your Confluence space's containers, page IDs, and label scheme |
-| `<SENTRY_ORG>`, `<SENTRY_FEEDBACK_PROJECT_SLUG>` | batch pack | your Sentry org and feedback project slug |
 | `<PROJECT>_TEST_*` | task-plan/solo-tasker test tiers | your test-harness env-var prefix |
 | `@mg:workhorse`, `@mg:arch`, `@mg:review` | many skills + both facets | model-group names from `config.yaml` `modelgroups` — keep these three names or rename and update references |
 | `<workhorse-model-*>`, `<arch-model-*>`, `<review-model-*>` | `config.yaml` | model references your providers authorize (format: `<provider>/<model>(<effort>)`) |
@@ -105,7 +104,7 @@ Replace these before first use:
 | `just build` / `just test` / `just fix`, `direnv exec .`, pre-commit hooks, `.worktrees/`, `.merge-lock`, single-`main` branch model | solo-tasker + epic skills | your project's real build/test/merge commands and branch model — the workflows assume a long-lived `main` with worktrees, but every command is named explicitly so you can swap it |
 
 The pack was extracted from a working setup and de-personalized: project keys,
-cloud IDs, Confluence pages, Sentry slugs, and raw model names were all
+cloud IDs, Confluence pages, and raw model names were all replaced, and the Sentry integration references were removed
 replaced. The workflow shapes (claim-before-research double-grab, review
 panels, skeptic gates, merge gates, ticket-lifecycle checkpoints) are the
 portable part.
